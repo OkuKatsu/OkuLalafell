@@ -26,19 +26,71 @@ namespace OkuLalafell.Utils
             KEEP = 2,
         }
 
+        public enum Clan : byte
+        {
+            CLAN0 = 0,
+            CLAN1 = 1,
+            UNKNOWN = 255
+        }
+
         public class RaceMappings
         {
-            public static readonly Dictionary<Race, int> RaceHairs = new()
+            public static readonly Dictionary<int, List<int>> RaceHairs = InitializeRaceHairs();
+
+            private static Dictionary<int, List<int>> InitializeRaceHairs()
             {
-                { Race.HYUR, 13 },
-                { Race.ELEZEN, 12 },
-                { Race.LALAFELL, 13 },
-                { Race.MIQOTE, 12 },
-                { Race.ROEGADYN, 13 },
-                { Race.AU_RA, 12 },
-                { Race.HROTHGAR, 8 },
-                { Race.VIERA, 17 },
-            };
+                var result = new Dictionary<int, List<int>>();
+
+                foreach (var row in HairData.HairDataArray)
+                {
+                    if (!result.TryGetValue(row.Primary, out var hairs))
+                        result.Add(row.Primary, hairs = []);
+
+                    hairs.Add(row.Secondary);
+                }
+
+                return result;
+            }
+
+            public static int SelectHairFor(Race race, Gender gender, Clan clan, int hairId)
+            {
+                int raceId = ((race, clan) switch
+                {
+                    (Race.HYUR, Clan.CLAN0) => 1,
+                    (Race.HYUR, Clan.CLAN1) => 3,
+                    (Race.ELEZEN, _) => 5,
+                    (Race.MIQOTE, _) => 7,
+                    (Race.ROEGADYN, _) => 9,
+                    (Race.LALAFELL, _) => 11,
+                    (Race.AU_RA, _) => 13,
+                    (Race.HROTHGAR, _) => 15,
+                    (Race.VIERA, _) => 17,
+                    _ => 1,
+                } + (gender == Gender.FEMALE ? 1 : 0)) * 100 + 1;
+
+                if (!RaceHairs.TryGetValue(raceId, out var hairs) || hairs.Count == 0)
+                    return 1;
+
+                var idx = hairs.FindIndex(x => x >= hairId);
+
+                if (idx == -1)
+                    idx = 0;
+
+                // Use matching hairstyle if it is available on target race
+                // otherwise, pick an index based on the hair ID
+                if (hairs[idx] == hairId)
+                {
+                    return hairId;
+                }
+                else
+                {
+                    // A lot of NPC exclusive hair is above 200 and aren't suitable
+                    while (hairId > 0 && hairs[hairId % hairs.Count] > 200)
+                        --hairId;
+
+                    return hairs[hairId % hairs.Count];
+                }
+            }
         }
 
         [StructLayout(LayoutKind.Explicit)]
@@ -50,6 +102,9 @@ namespace OkuLalafell.Utils
             [FieldOffset((int)CustomizeIndex.Tribe)] public byte Tribe;
             [FieldOffset((int)CustomizeIndex.FaceType)] public byte FaceType;
             [FieldOffset((int)CustomizeIndex.HairStyle)] public byte HairStyle;
+            [FieldOffset((int)CustomizeIndex.FaceFeatures)] public byte FaceFeatures;
+            [FieldOffset((int)CustomizeIndex.LipColor)] public byte LipColor;
+            [FieldOffset((int)CustomizeIndex.RaceFeatureType)] public byte RaceFeatureType;
         }
     }
 }

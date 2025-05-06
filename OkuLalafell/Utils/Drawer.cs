@@ -76,11 +76,23 @@ namespace OkuLalafell.Utils
             {
                 customData.Gender = selectedGender;
             }
+            var clan =  (byte)(customData.Tribe % 2);
+
+            customData.Tribe = (byte)(((byte)selectedRace * 2) - 1 + clan);
             customData.Race = selectedRace;
-            customData.Tribe = (byte)(((byte)selectedRace * 2) - (customData.Tribe % 2));
             customData.FaceType %= 4;
-            customData.ModelType %= 2;
-            customData.HairStyle = (byte)((customData.HairStyle % RaceMappings.RaceHairs[selectedRace]) + 1);
+            customData.ModelType = clan;
+
+            // Fur pattern should be 1-5 for hrothgar
+            if (customData.Race == Race.HROTHGAR)
+                customData.LipColor = (byte)(1 + (customData.LipColor % 5));
+
+            // Ears should be 1-4 for viera
+            if (customData.Race == Race.VIERA)
+                customData.RaceFeatureType = (byte)(1 + (customData.RaceFeatureType % 4));
+
+            customData.HairStyle = (byte)RaceMappings.SelectHairFor(customData.Race, customData.Gender, (Clan)customData.ModelType, customData.HairStyle);
+
             Marshal.StructureToPtr(customData, customizePtr, true);
         }
 
