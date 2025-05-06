@@ -3,18 +3,18 @@ using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
-using OopsAllLalafellsSRE.Utils;
-using OopsAllLalafellsSRE.Windows;
+using OkuLalafell.Utils;
+using OkuLalafell.Windows;
 using Penumbra.Api.Enums;
 
-namespace OopsAllLalafellsSRE
+namespace OkuLalafell
 {
     internal sealed class Plugin : IDalamudPlugin
     {
-        public static string Name => "OopsAllLalafellsSRE";
+        public static string Name => "OkuLalafell";
         private const string CommandName = "/polala";
 
-        public WindowSystem WindowSystem { get; } = new("OopsAllLalafellsSRE");
+        public WindowSystem WindowSystem { get; } = new("OkuLalafell");
 
         public Plugin(IDalamudPluginInterface pluginInterface)
         {
@@ -22,9 +22,9 @@ namespace OopsAllLalafellsSRE
 
             Service.configuration = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
 
-            if (!Service.configuration.stayOn)
+            if (!Service.configuration.StayOn)
             {
-                Service.configuration.enabled = false;
+                Service.configuration.Enabled = false;
             }
 
             Service.configuration.Initialize(pluginInterface);
@@ -36,14 +36,13 @@ namespace OopsAllLalafellsSRE
             WindowSystem.AddWindow(Service.configWindow);
 
             _ = pluginInterface.Create<Drawer>();
-            _ = pluginInterface.Create<Nameplate>();
 
             pluginInterface.UiBuilder.Draw += DrawUI;
             pluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
 
             Service.commandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
             {
-                HelpMessage = "Opens OopsAllLalafellsSRE config menu."
+                HelpMessage = "开启 Oku Lalafell 配置界面"
             });
         }
 
@@ -61,7 +60,6 @@ namespace OopsAllLalafellsSRE
 
             Service.penumbraApi?.Dispose();
             Service.drawer?.Dispose();
-            Service.nameplate?.Dispose();
             Service.commandManager?.RemoveHandler(CommandName);
         }
 
@@ -69,14 +67,14 @@ namespace OopsAllLalafellsSRE
         {
             if (args == "on")
             {
-                Service.configuration.enabled = true;
+                Service.configuration.Enabled = true;
                 Service.configuration.Save();
                 Service.configWindow.InvokeConfigChanged();
                 return;
             }
             if (args == "off")
             {
-                Service.configuration.enabled = false;
+                Service.configuration.Enabled = false;
                 Service.configuration.Save();
                 Service.configWindow.InvokeConfigChanged();
                 return;

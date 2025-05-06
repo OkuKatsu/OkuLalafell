@@ -1,18 +1,20 @@
 using Dalamud.Configuration;
 using Dalamud.Plugin;
 using System;
-using static OopsAllLalafellsSRE.Utils.Constant;
+using static OkuLalafell.Utils.Constant;
 
-namespace OopsAllLalafellsSRE
+namespace OkuLalafell
 {
     [Serializable]
     internal class Configuration : IPluginConfiguration
     {
         public int Version { get; set; } = 0;
         public Race SelectedRace { get; set; } = Race.LALAFELL;
-        public bool enabled { get; set; } = false;
-        public bool stayOn { get; set; } = false;
-        public bool nameHQ { get; set; } = true;
+        public Gender SelectedGender { get; set; } = Gender.KEEP;
+        public bool Enabled { get; set; } = false;
+        public bool StayOn { get; set; } = false;
+        public bool Naked { get; set; } = false;
+        public bool NakedWithEmp { get; set; } = false;
 
         // the below exist just to make saving less cumbersome
         [NonSerialized]

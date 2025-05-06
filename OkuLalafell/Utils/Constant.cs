@@ -2,7 +2,7 @@ using Dalamud.Game.ClientState.Objects.Enums;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace OopsAllLalafellsSRE.Utils
+namespace OkuLalafell.Utils
 {
     internal static class Constant
     {
@@ -17,6 +17,13 @@ namespace OopsAllLalafellsSRE.Utils
             AU_RA = 6,
             HROTHGAR = 7,
             VIERA = 8
+        }
+
+        public enum Gender : byte
+        {
+            MALE = 0,
+            FEMALE = 1,
+            KEEP = 2,
         }
 
         public class RaceMappings
@@ -38,6 +45,7 @@ namespace OopsAllLalafellsSRE.Utils
         public struct CharaCustomizeData
         {
             [FieldOffset((int)CustomizeIndex.Race)] public Race Race;
+            [FieldOffset((int)CustomizeIndex.Gender)] public Gender Gender;
             [FieldOffset((int)CustomizeIndex.ModelType)] public byte ModelType;
             [FieldOffset((int)CustomizeIndex.Tribe)] public byte Tribe;
             [FieldOffset((int)CustomizeIndex.FaceType)] public byte FaceType;
