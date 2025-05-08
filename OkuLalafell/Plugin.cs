@@ -35,6 +35,7 @@ namespace OkuLalafell
             Service.configWindow = new ConfigWindow(this);
             WindowSystem.AddWindow(Service.configWindow);
 
+            _ = pluginInterface.Create<Nameplate>();
             _ = pluginInterface.Create<Drawer>();
 
             pluginInterface.UiBuilder.Draw += DrawUI;

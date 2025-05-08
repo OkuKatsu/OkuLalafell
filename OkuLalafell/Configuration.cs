@@ -15,6 +15,8 @@ namespace OkuLalafell
         public bool StayOn { get; set; } = false;
         public bool Naked { get; set; } = false;
         public bool NakedWithEmp { get; set; } = false;
+        public bool LalaWithGender { get; set; } = false;
+        public bool ShowHQ { get; set; } = false;
 
         // the below exist just to make saving less cumbersome
         [NonSerialized]

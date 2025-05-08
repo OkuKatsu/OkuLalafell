@@ -24,7 +24,7 @@ internal class ConfigWindow : Window
         ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
         ImGuiWindowFlags.NoScrollWithMouse)
     {
-        Size = new Vector2(385, 190);
+        Size = new Vector2(385, 240);
         SizeCondition = ImGuiCond.Always;
 
         configuration = Service.configuration;
@@ -54,15 +54,6 @@ internal class ConfigWindow : Window
             OnConfigChanged?.Invoke();
         }
 
-        // Enabled
-        bool _Enabled = configuration.Enabled;
-        if (ImGui.Checkbox("启用替换", ref _Enabled))
-        {
-            configuration.Enabled = _Enabled;
-            configuration.Save();
-            OnConfigChanged?.Invoke();
-        }
-
         bool _Naked = configuration.Naked;
         if (ImGui.Checkbox("全部爆衣", ref _Naked))
         {
@@ -79,11 +70,38 @@ internal class ConfigWindow : Window
             OnConfigChanged?.Invoke();
         }
 
+        bool _LalaWithGender = configuration.LalaWithGender;
+        if (ImGui.Checkbox("显示拉拉肥性别", ref _LalaWithGender))
+        {
+            configuration.LalaWithGender = _LalaWithGender;
+            configuration.Save();
+            OnConfigChanged?.Invoke();
+        }
+
+        bool _ShowHQ = configuration.ShowHQ;
+        if (ImGui.Checkbox("如果是原本种族，显示 HQ 符号", ref _ShowHQ))
+        {
+            configuration.ShowHQ = _ShowHQ;
+            configuration.Save();
+            OnConfigChanged?.Invoke();
+        }
+
         bool _StayOn = configuration.StayOn;
         if (ImGui.Checkbox("每次启动默认替换", ref _StayOn))
         {
             configuration.StayOn = _StayOn;
             configuration.Save();
+        }
+
+        ImGui.Separator();
+
+        // Enabled
+        bool _Enabled = configuration.Enabled;
+        if (ImGui.Checkbox("启用替换", ref _Enabled))
+        {
+            configuration.Enabled = _Enabled;
+            configuration.Save();
+            OnConfigChanged?.Invoke();
         }
     }
 

@@ -16,6 +16,6 @@ internal class Service
     [PluginService] public static IChatGui chatGui { get; private set; } = null!;
     [PluginService] public static ICommandManager commandManager { get; private set; } = null!;
     [PluginService] public static INamePlateGui namePlateGui { get; private set; } = null!;
-
+    [PluginService] internal static INamePlateGui NamePlateGui { get; private set; } = null!;
     [PluginService] public static IObjectTable ObjectTable { get; private set; } = null!;
 }
