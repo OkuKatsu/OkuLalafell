@@ -21,8 +21,7 @@ internal class ConfigWindow : Window
 
     public ConfigWindow(Plugin plugin) : base(
         "Oku Lalafell 配置",
-        ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
-        ImGuiWindowFlags.NoScrollWithMouse)
+        ImGuiWindowFlags.AlwaysAutoResize)
     {
         Size = new Vector2(385, 240);
         SizeCondition = ImGuiCond.Always;
