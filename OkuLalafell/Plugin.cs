@@ -12,7 +12,7 @@ namespace OkuLalafell
     internal sealed class Plugin : IDalamudPlugin
     {
         public static string Name => "OkuLalafell";
-        private const string CommandName = "/polala";
+        private const string CommandName = "/oklala";
 
         public WindowSystem WindowSystem { get; } = new("OkuLalafell");
 
@@ -31,8 +31,8 @@ namespace OkuLalafell
 
             _ = pluginInterface.Create<Service>();
             Service.plugin = this;
-            Service.penumbraApi = new PenumbraIpc(pluginInterface);
             Service.configWindow = new ConfigWindow(this);
+            Service.penumbraApi = new PenumbraIpc(pluginInterface);
             WindowSystem.AddWindow(Service.configWindow);
 
             _ = pluginInterface.Create<Nameplate>();

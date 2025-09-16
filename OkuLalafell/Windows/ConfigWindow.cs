@@ -1,5 +1,5 @@
 using Dalamud.Interface.Windowing;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using OkuLalafell.Utils;
 using System;
 using System.Numerics;
@@ -23,7 +23,7 @@ internal class ConfigWindow : Window
         "Oku Lalafell 配置",
         ImGuiWindowFlags.AlwaysAutoResize)
     {
-        Size = new Vector2(385, 240);
+        Size = new Vector2(385, 280);
         SizeCondition = ImGuiCond.Always;
 
         configuration = Service.configuration;
