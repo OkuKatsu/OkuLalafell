@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Dalamud.NET.Sdk/13.0.0">
+<Project Sdk="Dalamud.NET.Sdk/14.0.0">
     <PropertyGroup>
         <Authors></Authors>
         <Company></Company>
-        <Version>2.13.2.9</Version>
+        <Version>2.14.2.9</Version>
         <Description>Turn everyone around you into Lalafells (or other races!)</Description>
         <Copyright></Copyright>
         <PackageProjectUrl>https://github.com/OkuKatsu/OkuLalafell</PackageProjectUrl>
         <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
         <IsPackable>false</IsPackable>
+        <TargetFramework>net10.0-windows7.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
